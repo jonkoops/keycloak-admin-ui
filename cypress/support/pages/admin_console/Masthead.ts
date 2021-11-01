@@ -50,7 +50,7 @@ export default class Masthead {
     cy.get("#manage-account").click();
   }
 
-  checkNotificationMessage(message: string, closeNotification?: boolean) {
+  checkNotificationMessage(message: string, closeNotification = true) {
     cy.contains(message).should("exist");
     if (closeNotification) {
       cy.get(".pf-c-alert__action").click();
