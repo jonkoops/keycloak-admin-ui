@@ -52,9 +52,11 @@ export default class Masthead {
 
   checkNotificationMessage(message: string, closeNotification = true) {
     cy.contains(message).should("exist");
+
     if (closeNotification) {
-      cy.get(".pf-c-alert__action").click();
+      cy.contains(message).closest(".pf-c-alert__action").click();
     }
+
     return this;
   }
 
