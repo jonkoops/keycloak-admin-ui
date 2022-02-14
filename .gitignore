@@ -141,3 +141,7 @@ cypress/downloads/
 
 *.iml
 .idea
+
+# Playwright
+test-results/
+playwright-report/
