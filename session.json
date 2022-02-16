@@ -1,0 +1,87 @@
+{
+  "cookies": [
+    {
+      "sameSite": "None",
+      "name": "AUTH_SESSION_ID",
+      "value": "ed1e59f4-4d28-4fc6-ad6e-76cc6f683fae.jons-pc",
+      "domain": "localhost",
+      "path": "/auth/realms/master/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true
+    },
+    {
+      "sameSite": "Lax",
+      "name": "AUTH_SESSION_ID_LEGACY",
+      "value": "ed1e59f4-4d28-4fc6-ad6e-76cc6f683fae.jons-pc",
+      "domain": "localhost",
+      "path": "/auth/realms/master/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": false
+    },
+    {
+      "sameSite": "None",
+      "name": "KEYCLOAK_IDENTITY",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4ZTMyN2VlMC05YWNkLTRlMjEtOTlmMi0wN2JmODA3ZGJkNWUifQ.eyJleHAiOjE2NDQ5ODc1NDUsImlhdCI6MTY0NDk1MTU0NSwianRpIjoiOTdkYTkyZWItNWI4OS00NTYwLWI3OTgtNWZjZjgzMjFkZDAxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL21hc3RlciIsInN1YiI6IjBlMGNiYzRmLWRkNjQtNGJiZi1iYzhmLTBmMDYxZjQyOWFlMiIsInR5cCI6IlNlcmlhbGl6ZWQtSUQiLCJzZXNzaW9uX3N0YXRlIjoiZWQxZTU5ZjQtNGQyOC00ZmM2LWFkNmUtNzZjYzZmNjgzZmFlIiwic2lkIjoiZWQxZTU5ZjQtNGQyOC00ZmM2LWFkNmUtNzZjYzZmNjgzZmFlIiwic3RhdGVfY2hlY2tlciI6Inhza1Q3ZllUeDNYbGotd1JDcUFQTlFMUVBQV01mV0hIakNwejBJbnFOcW8ifQ.sveCSzqTSFILG8hQNTMpiRfKs8Wb57KSwuseveW1Yqk",
+      "domain": "localhost",
+      "path": "/auth/realms/master/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true
+    },
+    {
+      "sameSite": "Lax",
+      "name": "KEYCLOAK_IDENTITY_LEGACY",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4ZTMyN2VlMC05YWNkLTRlMjEtOTlmMi0wN2JmODA3ZGJkNWUifQ.eyJleHAiOjE2NDQ5ODc1NDUsImlhdCI6MTY0NDk1MTU0NSwianRpIjoiOTdkYTkyZWItNWI4OS00NTYwLWI3OTgtNWZjZjgzMjFkZDAxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL21hc3RlciIsInN1YiI6IjBlMGNiYzRmLWRkNjQtNGJiZi1iYzhmLTBmMDYxZjQyOWFlMiIsInR5cCI6IlNlcmlhbGl6ZWQtSUQiLCJzZXNzaW9uX3N0YXRlIjoiZWQxZTU5ZjQtNGQyOC00ZmM2LWFkNmUtNzZjYzZmNjgzZmFlIiwic2lkIjoiZWQxZTU5ZjQtNGQyOC00ZmM2LWFkNmUtNzZjYzZmNjgzZmFlIiwic3RhdGVfY2hlY2tlciI6Inhza1Q3ZllUeDNYbGotd1JDcUFQTlFMUVBQV01mV0hIakNwejBJbnFOcW8ifQ.sveCSzqTSFILG8hQNTMpiRfKs8Wb57KSwuseveW1Yqk",
+      "domain": "localhost",
+      "path": "/auth/realms/master/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": false
+    },
+    {
+      "sameSite": "None",
+      "name": "KEYCLOAK_SESSION",
+      "value": "master/0e0cbc4f-dd64-4bbf-bc8f-0f061f429ae2/ed1e59f4-4d28-4fc6-ad6e-76cc6f683fae",
+      "domain": "localhost",
+      "path": "/auth/realms/master/",
+      "expires": 1644987545.082145,
+      "httpOnly": false,
+      "secure": true
+    },
+    {
+      "sameSite": "Lax",
+      "name": "KEYCLOAK_SESSION_LEGACY",
+      "value": "master/0e0cbc4f-dd64-4bbf-bc8f-0f061f429ae2/ed1e59f4-4d28-4fc6-ad6e-76cc6f683fae",
+      "domain": "localhost",
+      "path": "/auth/realms/master/",
+      "expires": 1644987545.082159,
+      "httpOnly": false,
+      "secure": false
+    }
+  ],
+  "origins": [
+    {
+      "origin": "http://localhost:8080",
+      "localStorage": [
+        {
+          "name": "recent-used-realms",
+          "value": "[\"master\"]"
+        },
+        {
+          "name": "kc-callback-d333f332-0236-47ef-80d5-297ed68ac944",
+          "value": "{\"state\":\"d333f332-0236-47ef-80d5-297ed68ac944\",\"nonce\":\"6721bce0-2457-47d4-8542-0b498f57fbe7\",\"redirectUri\":\"http%3A%2F%2Flocalhost%3A8080%2F%23%2F\",\"pkceCodeVerifier\":\"qGZD7k9BNtoi45uMgo5xX9FIDBIMdY2OW2foEAFyOWP9tzmyxgjpeEJlAkaozPSbmVBW59XJGzrzrcCc7qXDLvDHMUM2c981\",\"expires\":1644955144908}"
+        },
+        {
+          "name": "kc-callback-b01177b8-1270-4e80-9042-7c1ddeff68b0",
+          "value": "{\"state\":\"b01177b8-1270-4e80-9042-7c1ddeff68b0\",\"nonce\":\"4dcfbc90-a41b-4c82-8947-e5ce40d26f33\",\"redirectUri\":\"http%3A%2F%2Flocalhost%3A8080%2F%23%2F\",\"pkceCodeVerifier\":\"B3sA22eoLeluwPGkQBNXrhgdHTlUYG9T7PCpRRpOzVuQ7N5v6yzHkUFhrR0fxwNUWFaUFCmXxihSGb6T5Ye7Mzfa6CgzEVvu\",\"expires\":1644955144909}"
+        },
+        {
+          "name": "kc-callback-8f4b640b-0ab8-4b73-b509-7316e23ee2aa",
+          "value": "{\"state\":\"8f4b640b-0ab8-4b73-b509-7316e23ee2aa\",\"nonce\":\"7efb64ff-2f14-4908-838e-fdc896231f0c\",\"redirectUri\":\"http%3A%2F%2Flocalhost%3A8080%2F%23%2F\",\"pkceCodeVerifier\":\"72IVBn2HFIc1jsN4jAkzhfJGxSDzmqKhwvPItHqp6hCUYihJqDRoBJt5piWxipfVpFOBJOVjUDjWg0ZHvZQtdKKUBpGScR5T\",\"expires\":1644955144908}"
+        }
+      ]
+    }
+  ]
+}

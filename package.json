@@ -20,6 +20,7 @@
     "test": "jest",
     "start:cypress": "cypress open",
     "start:cypress-tests": "cypress run",
+    "playwright": "playwright test --config e2e/playwright.config.ts",
     "prepare": "husky install"
   },
   "dependencies": {
