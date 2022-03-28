@@ -69,9 +69,15 @@ jobs:
         working-directory: ${{ env.ADMIN_UI_PATH }}
         run: npm ci
 
+      - name: Restore Cypress weights
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.ADMIN_UI_PATH }}/cypress/parallel-weights.json
+          key: ${{ runner.os }}-${{ hashFiles('**/spec.ts') }}
+
       - name: Run Cypress
         working-directory: ${{ env.ADMIN_UI_PATH }}
-        run: CYPRESS_BASE_URL=http://localhost:8080/admin/ CYPRESS_KEYCLOAK_SERVER=http://localhost:8080 npm run start:cypress-tests
+        run: CYPRESS_BASE_URL=http://localhost:8080/admin/ CYPRESS_KEYCLOAK_SERVER=http://localhost:8080 npm run start:cypress-parallel
 
       - name: Add Cypress videos artifacts
         uses: actions/upload-artifact@v2

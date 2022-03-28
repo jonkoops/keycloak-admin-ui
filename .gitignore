@@ -137,6 +137,10 @@ server/
 **/cypress.env.json
 cypress/downloads/
 
+## cypress-parralel
+runner-results/
+multi-reporter-config.json
+
 # IntelliJ #
 
 *.iml
