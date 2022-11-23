@@ -6,16 +6,19 @@ import {
   SelectVariant,
 } from "@patternfly/react-core";
 import { useState } from "react";
-import { Controller, useFormContext } from "react-hook-form-v7";
+import { Controller, UseFormReturn } from "react-hook-form-v7";
 import { useTranslation } from "react-i18next";
 
 import { HelpItem } from "../../components/help-enabler/HelpItem";
 
 const TYPES = ["basic-flow", "client-flow"] as const;
 
-export const FlowType = () => {
+type FlowTypeProps = {
+  form: UseFormReturn<AuthenticationFlowRepresentation>;
+};
+
+export const FlowType = ({ form: { control } }: FlowTypeProps) => {
   const { t } = useTranslation("authentication");
-  const { control } = useFormContext<AuthenticationFlowRepresentation>();
   const [open, setOpen] = useState(false);
 
   return (

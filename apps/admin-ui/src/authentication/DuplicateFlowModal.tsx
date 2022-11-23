@@ -109,7 +109,7 @@ export const DuplicateFlowModal = ({
           onSubmit={handleSubmit(onSubmit)}
           isHorizontal
         >
-          <NameDescription />
+          <NameDescription form={form} />
         </Form>
       </FormProvider>
     </Modal>

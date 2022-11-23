@@ -1,15 +1,15 @@
-import { useTranslation } from "react-i18next";
-import { Controller, useFormContext } from "react-hook-form";
+import type ClientRepresentation from "@keycloak/keycloak-admin-client/lib/defs/clientRepresentation";
 import {
-  FormGroup,
-  Switch,
   Checkbox,
+  FormGroup,
   Grid,
   GridItem,
   InputGroup,
+  Switch,
 } from "@patternfly/react-core";
+import { Controller, UseFormMethods } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import type ClientRepresentation from "@keycloak/keycloak-admin-client/lib/defs/clientRepresentation";
 import { FormAccess } from "../../components/form-access/FormAccess";
 import { HelpItem } from "../../components/help-enabler/HelpItem";
 import { convertAttributeNameToForm } from "../../util";
@@ -17,16 +17,17 @@ import { convertAttributeNameToForm } from "../../util";
 import "./capability-config.css";
 
 type CapabilityConfigProps = {
+  form: UseFormMethods<ClientRepresentation>;
   unWrap?: boolean;
   protocol?: string;
 };
 
 export const CapabilityConfig = ({
+  form: { control, watch, setValue },
   unWrap,
   protocol: type,
 }: CapabilityConfigProps) => {
   const { t } = useTranslation("clients");
-  const { control, watch, setValue } = useFormContext<ClientRepresentation>();
   const protocol = type || watch("protocol");
   const clientAuthentication = watch("publicClient");
   const authorization = watch("authorizationServicesEnabled");

@@ -1,6 +1,4 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Controller, useFormContext } from "react-hook-form";
+import type ClientRepresentation from "@keycloak/keycloak-admin-client/lib/defs/clientRepresentation";
 import {
   FormGroup,
   Select,
@@ -8,18 +6,26 @@ import {
   SelectVariant,
   Switch,
 } from "@patternfly/react-core";
+import { useState } from "react";
+import { Controller, UseFormMethods } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import type ClientRepresentation from "@keycloak/keycloak-admin-client/lib/defs/clientRepresentation";
 import { FormAccess } from "../../components/form-access/FormAccess";
 import { HelpItem } from "../../components/help-enabler/HelpItem";
-import { useServerInfo } from "../../context/server-info/ServerInfoProvider";
 import { KeycloakTextArea } from "../../components/keycloak-text-area/KeycloakTextArea";
+import { useServerInfo } from "../../context/server-info/ServerInfoProvider";
 import { convertAttributeNameToForm } from "../../util";
 
-export const LoginSettingsPanel = ({ access }: { access?: boolean }) => {
-  const { t } = useTranslation("clients");
-  const { register, control, watch } = useFormContext<ClientRepresentation>();
+type LoginSettingsPanelProps = {
+  form: UseFormMethods<ClientRepresentation>;
+  access?: boolean;
+};
 
+export const LoginSettingsPanel = ({
+  form: { register, control, watch },
+  access,
+}: LoginSettingsPanelProps) => {
+  const { t } = useTranslation("clients");
   const [loginThemeOpen, setLoginThemeOpen] = useState(false);
   const loginThemes = useServerInfo().themes!["login"];
   const consentRequired = watch("consentRequired");

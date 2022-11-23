@@ -419,6 +419,7 @@ export default function ClientDetails() {
               {...route("settings")}
             >
               <ClientSettings
+                form={form}
                 client={client}
                 save={() => save()}
                 reset={() => setupForm(client)}
@@ -637,7 +638,7 @@ export default function ClientDetails() {
               title={<TabTitleText>{t("advanced")}</TabTitleText>}
               {...route("advanced")}
             >
-              <AdvancedTab save={save} client={client} />
+              <AdvancedTab form={form} save={save} client={client} />
             </Tab>
           </RoutableTabs>
         </FormProvider>

@@ -1,18 +1,23 @@
 import AuthenticationFlowRepresentation from "@keycloak/keycloak-admin-client/lib/defs/authenticationFlowRepresentation";
 import { FormGroup, ValidatedOptions } from "@patternfly/react-core";
-import { useFormContext } from "react-hook-form-v7";
+import { UseFormReturn } from "react-hook-form-v7";
 import { useTranslation } from "react-i18next";
 
 import { HelpItem } from "../../components/help-enabler/HelpItem";
 import { KeycloakTextArea } from "../../components/keycloak-text-area/KeycloakTextArea";
 import { KeycloakTextInput } from "../../components/keycloak-text-input/KeycloakTextInput";
 
-export const NameDescription = () => {
-  const { t } = useTranslation("authentication");
-  const {
+type NameDescriptionProps = {
+  form: UseFormReturn<AuthenticationFlowRepresentation>;
+};
+
+export const NameDescription = ({
+  form: {
     register,
     formState: { errors },
-  } = useFormContext<AuthenticationFlowRepresentation>();
+  },
+}: NameDescriptionProps) => {
+  const { t } = useTranslation("authentication");
 
   return (
     <>

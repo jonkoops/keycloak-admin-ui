@@ -1,5 +1,4 @@
-import { useTranslation } from "react-i18next";
-import { Controller, useFormContext } from "react-hook-form";
+import type PasswordPolicyTypeRepresentation from "@keycloak/keycloak-admin-client/lib/defs/passwordPolicyTypeRepresentation";
 import {
   Button,
   FormGroup,
@@ -10,28 +9,32 @@ import {
   ValidatedOptions,
 } from "@patternfly/react-core";
 import { MinusCircleIcon } from "@patternfly/react-icons";
-import type PasswordPolicyTypeRepresentation from "@keycloak/keycloak-admin-client/lib/defs/passwordPolicyTypeRepresentation";
+import { Controller, UseFormMethods } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import { KeycloakTextInput } from "../../components/keycloak-text-input/KeycloakTextInput";
 import { HelpItem } from "../../components/help-enabler/HelpItem";
+import { KeycloakTextInput } from "../../components/keycloak-text-input/KeycloakTextInput";
+import { SubmittedValues } from "./util";
 
 import "./policy-row.css";
 
 type PolicyRowProps = {
+  form: UseFormMethods<SubmittedValues>;
   policy: PasswordPolicyTypeRepresentation;
   onRemove: (id?: string) => void;
 };
 
 export const PolicyRow = ({
+  form: {
+    control,
+    register,
+    formState: { errors },
+  },
   policy: { id, configType, defaultValue, displayName },
   onRemove,
 }: PolicyRowProps) => {
   const { t } = useTranslation("authentication");
-  const {
-    control,
-    register,
-    formState: { errors },
-  } = useFormContext();
+
   return (
     <FormGroup
       label={displayName}

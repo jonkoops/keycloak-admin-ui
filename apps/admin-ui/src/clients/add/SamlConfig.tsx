@@ -1,6 +1,4 @@
-import { useState } from "react";
-import { Controller, useFormContext } from "react-hook-form";
-import { useTranslation } from "react-i18next";
+import type ClientRepresentation from "@keycloak/keycloak-admin-client/lib/defs/clientRepresentation";
 import {
   FormGroup,
   Select,
@@ -8,15 +6,22 @@ import {
   SelectVariant,
   Switch,
 } from "@patternfly/react-core";
+import { useState } from "react";
+import { Controller, UseFormMethods } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import type ClientRepresentation from "@keycloak/keycloak-admin-client/lib/defs/clientRepresentation";
 import { FormAccess } from "../../components/form-access/FormAccess";
 import { HelpItem } from "../../components/help-enabler/HelpItem";
 import { convertAttributeNameToForm } from "../../util";
 
-export const Toggle = ({ name, label }: { name: string; label: string }) => {
+type ToggleProps = {
+  form: UseFormMethods<ClientRepresentation>;
+  name: string;
+  label: string;
+};
+
+export const Toggle = ({ form: { control }, name, label }: ToggleProps) => {
   const { t } = useTranslation("clients");
-  const { control } = useFormContext<ClientRepresentation>();
 
   return (
     <FormGroup
@@ -50,11 +55,15 @@ export const Toggle = ({ name, label }: { name: string; label: string }) => {
   );
 };
 
-export const SamlConfig = () => {
-  const { t } = useTranslation("clients");
-  const { control } = useFormContext<ClientRepresentation>();
+type SamlConfigProps = {
+  form: UseFormMethods<ClientRepresentation>;
+};
 
+export const SamlConfig = ({ form }: SamlConfigProps) => {
+  const { t } = useTranslation("clients");
   const [nameFormatOpen, setNameFormatOpen] = useState(false);
+  const { control } = form;
+
   return (
     <FormAccess
       isHorizontal
@@ -100,30 +109,36 @@ export const SamlConfig = () => {
         />
       </FormGroup>
       <Toggle
+        form={form}
         name={convertAttributeNameToForm(
           "attributes.saml.force.name.id.format"
         )}
         label="forceNameIdFormat"
       />
       <Toggle
+        form={form}
         name={convertAttributeNameToForm("attributes.saml.force.post.binding")}
         label="forcePostBinding"
       />
       <Toggle
+        form={form}
         name={convertAttributeNameToForm("attributes.saml.artifact.binding")}
         label="forceArtifactBinding"
       />
       <Toggle
+        form={form}
         name={convertAttributeNameToForm("attributes.saml.authnstatement")}
         label="includeAuthnStatement"
       />
       <Toggle
+        form={form}
         name={convertAttributeNameToForm(
           "attributes.saml.onetimeuse.condition"
         )}
         label="includeOneTimeUseCondition"
       />
       <Toggle
+        form={form}
         name={convertAttributeNameToForm(
           "attributes.saml.server.signature.keyinfo.ext"
         )}

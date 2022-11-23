@@ -1,28 +1,32 @@
-import { useState } from "react";
+import ClientRepresentation from "@keycloak/keycloak-admin-client/lib/defs/clientRepresentation";
 import {
   FormGroup,
   Select,
-  SelectVariant,
   SelectOption,
+  SelectVariant,
 } from "@patternfly/react-core";
+import { useState } from "react";
+import { Controller, UseFormMethods } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { Controller, useFormContext } from "react-hook-form";
 
-import { useLoginProviders } from "../../context/server-info/ServerInfoProvider";
-import { ClientDescription } from "../ClientDescription";
 import { FormAccess } from "../../components/form-access/FormAccess";
 import { HelpItem } from "../../components/help-enabler/HelpItem";
+import { useLoginProviders } from "../../context/server-info/ServerInfoProvider";
+import { ClientDescription } from "../ClientDescription";
 import { getProtocolName } from "../utils";
 
-export const GeneralSettings = () => {
+type GeneralSettingsProps = {
+  form: UseFormMethods<ClientRepresentation>;
+};
+
+export const GeneralSettings = ({ form }: GeneralSettingsProps) => {
   const { t } = useTranslation("clients");
+  const providers = useLoginProviders();
+  const [open, isOpen] = useState(false);
   const {
     control,
     formState: { errors },
-  } = useFormContext();
-
-  const providers = useLoginProviders();
-  const [open, isOpen] = useState(false);
+  } = form;
 
   return (
     <FormAccess isHorizontal role="manage-clients">
@@ -68,7 +72,7 @@ export const GeneralSettings = () => {
           )}
         />
       </FormGroup>
-      <ClientDescription hasConfigureAccess />
+      <ClientDescription form={form} hasConfigureAccess />
     </FormAccess>
   );
 };

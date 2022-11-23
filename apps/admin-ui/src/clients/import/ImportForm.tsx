@@ -115,7 +115,7 @@ export default function ImportForm() {
               helpText="common-help:helpFileUploadClient"
               onChange={handleFileChange}
             />
-            <ClientDescription hasConfigureAccess />
+            <ClientDescription form={form} hasConfigureAccess />
             <FormGroup label={t("common:type")} fieldId="kc-type">
               <KeycloakTextInput
                 type="text"
@@ -125,7 +125,7 @@ export default function ImportForm() {
                 ref={register()}
               />
             </FormGroup>
-            <CapabilityConfig unWrap={true} />
+            <CapabilityConfig form={form} unWrap={true} />
             <ActionGroup>
               <Button variant="primary" type="submit">
                 {t("common:save")}

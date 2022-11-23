@@ -73,7 +73,7 @@ export const EditFlowModal = ({ flow, toggleDialog }: EditFlowModalProps) => {
           onSubmit={handleSubmit(onSubmit)}
           isHorizontal
         >
-          <NameDescription />
+          <NameDescription form={form} />
         </Form>
       </FormProvider>
     </Modal>

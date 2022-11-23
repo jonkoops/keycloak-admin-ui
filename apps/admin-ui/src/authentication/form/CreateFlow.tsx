@@ -66,8 +66,8 @@ export default function CreateFlow() {
             role="manage-authorization"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <NameDescription />
-            <FlowType />
+            <NameDescription form={form} />
+            <FlowType form={form} />
             <ActionGroup>
               <Button data-testid="create" type="submit">
                 {t("common:create")}

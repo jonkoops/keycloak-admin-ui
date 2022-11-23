@@ -140,6 +140,7 @@ export const PasswordPolicy = ({
               >
                 {rows.map((r, index) => (
                   <PolicyRow
+                    form={form}
                     key={`${r.id}-${index}`}
                     policy={r}
                     onRemove={(id) => setRows(rows.filter((r) => r.id !== id))}

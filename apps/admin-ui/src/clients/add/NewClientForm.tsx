@@ -42,8 +42,8 @@ export default function NewClientForm() {
     frontchannelLogout: true,
   });
   const { addAlert, addError } = useAlerts();
-  const methods = useForm<ClientRepresentation>({ defaultValues: client });
-  const protocol = methods.watch("protocol");
+  const form = useForm<ClientRepresentation>({ defaultValues: client });
+  const protocol = form.watch("protocol");
 
   const save = async () => {
     try {
@@ -59,10 +59,10 @@ export default function NewClientForm() {
   };
 
   const forward = async (onNext?: () => void) => {
-    if (await methods.trigger()) {
+    if (await form.trigger()) {
       setClient({
         ...client,
-        ...convertFormValuesToObject(methods.getValues()),
+        ...convertFormValuesToObject(form.getValues()),
       });
       if (!isFinalStep()) {
         setShowCapabilityConfig(true);
@@ -75,10 +75,10 @@ export default function NewClientForm() {
     showCapabilityConfig || protocol !== "openid-connect";
 
   const back = () => {
-    setClient({ ...client, ...convertFormValuesToObject(methods.getValues()) });
-    methods.reset({
+    setClient({ ...client, ...convertFormValuesToObject(form.getValues()) });
+    form.reset({
       ...client,
-      ...convertFormValuesToObject(methods.getValues()),
+      ...convertFormValuesToObject(form.getValues()),
     });
     setShowCapabilityConfig(false);
   };
@@ -134,7 +134,7 @@ export default function NewClientForm() {
         subKey="clients:clientsExplain"
       />
       <PageSection variant="light">
-        <FormProvider {...methods}>
+        <FormProvider {...form}>
           <Wizard
             onClose={() => navigate(toClients({ realm }))}
             navAriaLabel={`${title} steps`}
@@ -143,7 +143,7 @@ export default function NewClientForm() {
               {
                 id: "generalSettings",
                 name: t("generalSettings"),
-                component: <GeneralSettings />,
+                component: <GeneralSettings form={form} />,
               },
               ...(showCapabilityConfig
                 ? [
@@ -151,7 +151,10 @@ export default function NewClientForm() {
                       id: "capabilityConfig",
                       name: t("capabilityConfig"),
                       component: (
-                        <CapabilityConfig protocol={client.protocol} />
+                        <CapabilityConfig
+                          form={form}
+                          protocol={client.protocol}
+                        />
                       ),
                     },
                   ]

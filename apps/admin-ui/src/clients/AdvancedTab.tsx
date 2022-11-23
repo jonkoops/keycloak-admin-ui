@@ -1,22 +1,21 @@
-import { useTranslation } from "react-i18next";
-import { useFormContext } from "react-hook-form";
-import { AlertVariant, PageSection, Text } from "@patternfly/react-core";
-
 import type ClientRepresentation from "@keycloak/keycloak-admin-client/lib/defs/clientRepresentation";
 import type GlobalRequestResult from "@keycloak/keycloak-admin-client/lib/defs/globalRequestResult";
+import { AlertVariant, PageSection, Text } from "@patternfly/react-core";
+import type { TFunction } from "i18next";
+import { UseFormMethods } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import type { AddAlertFunction } from "../components/alert/Alerts";
 import { ScrollForm } from "../components/scroll-form/ScrollForm";
 import { convertAttributeNameToForm, toUpperCase } from "../util";
 import { AdvancedSettings } from "./advanced/AdvancedSettings";
 import { AuthenticationOverrides } from "./advanced/AuthenticationOverrides";
+import { ClusteringPanel } from "./advanced/ClusteringPanel";
 import { FineGrainOpenIdConnect } from "./advanced/FineGrainOpenIdConnect";
 import { FineGrainSamlEndpointConfig } from "./advanced/FineGrainSamlEndpointConfig";
 import { OpenIdConnectCompatibilityModes } from "./advanced/OpenIdConnectCompatibilityModes";
-import type { SaveOptions } from "./ClientDetails";
-import type { TFunction } from "i18next";
 import { RevocationPanel } from "./advanced/RevocationPanel";
-import { ClusteringPanel } from "./advanced/ClusteringPanel";
+import type { SaveOptions } from "./ClientDetails";
 
 export const parseResult = (
   result: GlobalRequestResult,
@@ -47,15 +46,16 @@ export const parseResult = (
 };
 
 export type AdvancedProps = {
+  form: UseFormMethods<ClientRepresentation>;
   save: (options?: SaveOptions) => void;
   client: ClientRepresentation;
 };
 
-export const AdvancedTab = ({ save, client }: AdvancedProps) => {
+export const AdvancedTab = ({ form, save, client }: AdvancedProps) => {
   const { t } = useTranslation("clients");
   const openIdConnect = "openid-connect";
+  const { setValue, control } = form;
 
-  const { setValue, control } = useFormContext();
   const {
     publicClient,
     attributes,
@@ -79,12 +79,12 @@ export const AdvancedTab = ({ save, client }: AdvancedProps) => {
           {
             title: t("revocation"),
             isHidden: protocol !== openIdConnect,
-            panel: <RevocationPanel client={client} save={save} />,
+            panel: <RevocationPanel form={form} client={client} save={save} />,
           },
           {
             title: t("clustering"),
             isHidden: !publicClient,
-            panel: <ClusteringPanel client={client} save={save} />,
+            panel: <ClusteringPanel form={form} client={client} save={save} />,
           },
           {
             title: t("fineGrainOpenIdConnectConfiguration"),

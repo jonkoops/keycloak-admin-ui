@@ -1,17 +1,17 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Controller, useFormContext } from "react-hook-form";
+import type ClientRepresentation from "@keycloak/keycloak-admin-client/lib/defs/clientRepresentation";
 import {
   FormGroup,
   Select,
   SelectOption,
   SelectVariant,
 } from "@patternfly/react-core";
+import { useState } from "react";
+import { Controller, UseFormMethods } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import type ClientRepresentation from "@keycloak/keycloak-admin-client/lib/defs/clientRepresentation";
-import { convertAttributeNameToForm } from "../../util";
 import { FormAccess } from "../../components/form-access/FormAccess";
 import { HelpItem } from "../../components/help-enabler/HelpItem";
+import { convertAttributeNameToForm } from "../../util";
 import { Toggle } from "./SamlConfig";
 
 const SIGNATURE_ALGORITHMS = [
@@ -41,13 +41,17 @@ const CANONICALIZATION = [
   },
 ] as const;
 
-export const SamlSignature = () => {
+type SamlSignatureProps = {
+  form: UseFormMethods<ClientRepresentation>;
+};
+
+export const SamlSignature = ({ form }: SamlSignatureProps) => {
   const { t } = useTranslation("clients");
   const [algOpen, setAlgOpen] = useState(false);
   const [keyOpen, setKeyOpen] = useState(false);
   const [canOpen, setCanOpen] = useState(false);
 
-  const { control, watch } = useFormContext<ClientRepresentation>();
+  const { control, watch } = form;
 
   const signDocs = watch(
     convertAttributeNameToForm("attributes.saml.server.signature")
@@ -63,10 +67,12 @@ export const SamlSignature = () => {
       className="keycloak__capability-config__form"
     >
       <Toggle
+        form={form}
         name={convertAttributeNameToForm("attributes.saml.server.signature")}
         label="signDocuments"
       />
       <Toggle
+        form={form}
         name={convertAttributeNameToForm("attributes.saml.assertion.signature")}
         label="signAssertions"
       />

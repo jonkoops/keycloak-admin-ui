@@ -1,28 +1,27 @@
-import { useTranslation } from "react-i18next";
-import { Controller, useFormContext } from "react-hook-form";
 import { FormGroup, Switch, ValidatedOptions } from "@patternfly/react-core";
+import { Controller } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import type ClientRepresentation from "@keycloak/keycloak-admin-client/lib/defs/clientRepresentation";
-import type { ClientSettingsProps } from "../ClientSettings";
 import { FormAccess } from "../../components/form-access/FormAccess";
 import { HelpItem } from "../../components/help-enabler/HelpItem";
 import { KeycloakTextInput } from "../../components/keycloak-text-input/KeycloakTextInput";
 import { useAccess } from "../../context/access/Access";
-import { SaveReset } from "../advanced/SaveReset";
 import { convertAttributeNameToForm } from "../../util";
+import { SaveReset } from "../advanced/SaveReset";
+import type { ClientSettingsProps } from "../ClientSettings";
 
 export const LogoutPanel = ({
+  form: {
+    register,
+    control,
+    watch,
+    formState: { errors },
+  },
   save,
   reset,
   client: { access },
 }: ClientSettingsProps) => {
   const { t } = useTranslation("clients");
-  const {
-    register,
-    control,
-    watch,
-    formState: { errors },
-  } = useFormContext<ClientRepresentation>();
 
   const { hasAccess } = useAccess();
   const isManager = hasAccess("manage-clients") || access?.configure;

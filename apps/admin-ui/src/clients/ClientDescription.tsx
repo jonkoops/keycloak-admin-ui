@@ -1,27 +1,29 @@
-import { Controller, useFormContext } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { FormGroup, Switch, ValidatedOptions } from "@patternfly/react-core";
-
 import type ClientRepresentation from "@keycloak/keycloak-admin-client/lib/defs/clientRepresentation";
-import { HelpItem } from "../components/help-enabler/HelpItem";
+import { FormGroup, Switch, ValidatedOptions } from "@patternfly/react-core";
+import { Controller, UseFormMethods } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+
 import { FormAccess } from "../components/form-access/FormAccess";
-import { KeycloakTextInput } from "../components/keycloak-text-input/KeycloakTextInput";
+import { HelpItem } from "../components/help-enabler/HelpItem";
 import { KeycloakTextArea } from "../components/keycloak-text-area/KeycloakTextArea";
+import { KeycloakTextInput } from "../components/keycloak-text-input/KeycloakTextInput";
 
 type ClientDescriptionProps = {
+  form: UseFormMethods<ClientRepresentation>;
   protocol?: string;
   hasConfigureAccess?: boolean;
 };
 
 export const ClientDescription = ({
-  hasConfigureAccess: configure,
-}: ClientDescriptionProps) => {
-  const { t } = useTranslation("clients");
-  const {
+  form: {
     register,
     control,
     formState: { errors },
-  } = useFormContext<ClientRepresentation>();
+  },
+  hasConfigureAccess: configure,
+}: ClientDescriptionProps) => {
+  const { t } = useTranslation("clients");
+
   return (
     <FormAccess role="manage-clients" fineGrainedAccess={configure} unWrap>
       <FormGroup

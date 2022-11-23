@@ -3,7 +3,7 @@ import {
   Controller,
   FormProvider,
   useForm,
-  useFormContext,
+  UseFormMethods,
 } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
@@ -69,6 +69,7 @@ const USER_VERIFY = [
 ] as const;
 
 type WeauthnSelectProps = {
+  form: UseFormMethods;
   name: string;
   label: string;
   options: readonly string[];
@@ -77,6 +78,7 @@ type WeauthnSelectProps = {
 };
 
 const WebauthnSelect = ({
+  form: { control },
   name,
   label,
   options,
@@ -84,9 +86,8 @@ const WebauthnSelect = ({
   isMultiSelect = false,
 }: WeauthnSelectProps) => {
   const { t } = useTranslation("authentication");
-  const { control } = useFormContext();
-
   const [open, toggle] = useState(false);
+
   return (
     <FormGroup
       label={t(label)}
@@ -233,6 +234,7 @@ export const WebauthnPolicy = ({
         </FormGroup>
         <FormProvider {...form}>
           <WebauthnSelect
+            form={form}
             name={`${namePrefix}SignatureAlgorithms`}
             label="webAuthnPolicySignatureAlgorithms"
             options={SIGNATURE_ALGORITHMS}
@@ -257,24 +259,28 @@ export const WebauthnPolicy = ({
             />
           </FormGroup>
           <WebauthnSelect
+            form={form}
             name={`${namePrefix}AttestationConveyancePreference`}
             label="webAuthnPolicyAttestationConveyancePreference"
             options={ATTESTATION_PREFERENCE}
             labelPrefix="attestationPreference"
           />
           <WebauthnSelect
+            form={form}
             name={`${namePrefix}AuthenticatorAttachment`}
             label="webAuthnPolicyAuthenticatorAttachment"
             options={AUTHENTICATOR_ATTACHMENT}
             labelPrefix="authenticatorAttachment"
           />
           <WebauthnSelect
+            form={form}
             name={`${namePrefix}RequireResidentKey`}
             label="webAuthnPolicyRequireResidentKey"
             options={RESIDENT_KEY_OPTIONS}
             labelPrefix="residentKey"
           />
           <WebauthnSelect
+            form={form}
             name={`${namePrefix}UserVerificationRequirement`}
             label="webAuthnPolicyUserVerificationRequirement"
             options={USER_VERIFY}
