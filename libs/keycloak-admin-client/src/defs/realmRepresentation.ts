@@ -121,6 +121,28 @@ export default interface RealmRepresentation {
   users?: UserRepresentation[];
   verifyEmail?: boolean;
   waitIncrementSeconds?: number;
+  // WebAuthn 2-factor
+  webAuthnPolicyRpEntityName?: string;
+  webAuthnPolicySignatureAlgorithms?: string[];
+  webAuthnPolicyRpId?: string;
+  webAuthnPolicyAttestationConveyancePreference?: string;
+  webAuthnPolicyAuthenticatorAttachment?: string;
+  webAuthnPolicyRequireResidentKey?: string;
+  webAuthnPolicyUserVerificationRequirement?: string;
+  webAuthnPolicyCreateTimeout?: number;
+  webAuthnPolicyAvoidSameAuthenticatorRegister?: boolean;
+  webAuthnPolicyAcceptableAaguids?: string[];
+  // WebAuthn passwordless
+  webAuthnPolicyPasswordlessRpEntityName?: string;
+  webAuthnPolicyPasswordlessSignatureAlgorithms?: string[];
+  webAuthnPolicyPasswordlessRpId?: string;
+  webAuthnPolicyPasswordlessAttestationConveyancePreference?: string;
+  webAuthnPolicyPasswordlessAuthenticatorAttachment?: string;
+  webAuthnPolicyPasswordlessRequireResidentKey?: string;
+  webAuthnPolicyPasswordlessUserVerificationRequirement?: string;
+  webAuthnPolicyPasswordlessCreateTimeout?: number;
+  webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister?: boolean;
+  webAuthnPolicyPasswordlessAcceptableAaguids?: string[];
 }
 
 export type PartialImportRealmRepresentation = RealmRepresentation & {
