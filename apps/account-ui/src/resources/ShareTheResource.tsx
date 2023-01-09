@@ -17,7 +17,7 @@ import {
   ValidatedOptions,
 } from "@patternfly/react-core";
 
-import { Permission, Resource } from "../representations";
+import { Permission, Resource } from "../api/representations";
 import { KeycloakTextInput } from "../components/keycloak-text-input/KeycloakTextInput";
 import { SelectControl } from "../components/controls/SelectControl";
 import { SharedWith } from "./SharedWith";

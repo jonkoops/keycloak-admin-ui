@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import {
   Badge,
   Button,
@@ -8,6 +6,7 @@ import {
   ModalVariant,
   Text,
 } from "@patternfly/react-core";
+import { UserCheckIcon } from "@patternfly/react-icons";
 import {
   TableComposable,
   Tbody,
@@ -16,11 +15,12 @@ import {
   Thead,
   Tr,
 } from "@patternfly/react-table";
-import { UserCheckIcon } from "@patternfly/react-icons";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
-import { Permission, Resource } from "../representations";
+import { getPermissions, updateRequest } from "../api/methods";
+import { Permission, Resource } from "../api/representations";
 import { useAlerts } from "../components/alerts/Alerts";
-import { fetchPermission, updateRequest } from "../api";
 
 type PermissionRequestProps = {
   resource: Resource;
@@ -43,18 +43,17 @@ export const PermissionRequest = ({
     approve: boolean = false
   ) => {
     try {
-      const permissions = await fetchPermission({}, resource._id);
+      const permissions = await getPermissions(resource._id);
       const { scopes, username } = permissions.find(
         (p) => p.username === shareRequest.username
       )!;
 
-      await updateRequest(
-        resource._id,
+      await updateRequest(resource._id, {
         username,
-        approve
+        scopes: approve
           ? [...(scopes as string[]), ...(shareRequest.scopes as string[])]
-          : scopes
-      );
+          : scopes,
+      });
       addAlert("shareSuccess");
       toggle();
       refresh();

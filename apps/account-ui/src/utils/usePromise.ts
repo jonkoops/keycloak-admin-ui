@@ -51,6 +51,7 @@ export function usePromise<T>(
     const controller = new AbortController();
     const { signal } = controller;
 
+    // TODO: Test cancellation.
     async function handlePromise() {
       const value = await factory(signal);
 

@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import {
   Button,
   Dropdown,
@@ -20,31 +18,32 @@ import {
   ShareAltIcon,
 } from "@patternfly/react-icons";
 import {
+  ExpandableRowContent,
   TableComposable,
-  Thead,
-  Tr,
-  Th,
   Tbody,
   Td,
-  ExpandableRowContent,
+  Th,
+  Thead,
+  Tr,
 } from "@patternfly/react-table";
-
-import { ContinueCancelModal } from "../components/continue-cancel/ContinueCancelModel";
-import { Permission, Resource } from "../representations";
-import { Links } from "../utils/parse-links";
-import { ResourceToolbar } from "./ResourceToolbar";
-import { PermissionRequest } from "./PermissionRequest";
-import { ShareTheResource } from "./ShareTheResource";
-import { SharedWith } from "./SharedWith";
-import { EditTheResource } from "./EditTheResource";
-import { useAlerts } from "../components/alerts/Alerts";
-import { usePromise } from "../utils/usePromise";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
-  fetchPermission,
-  fetchRequest,
-  fetchResources,
+  getPermissions,
+  getResources,
+  PaginationParams,
   updatePermissions,
-} from "../api";
+} from "../api/methods";
+import { Links } from "../api/parse-links";
+import { Permission, Resource } from "../api/representations";
+import { useAlerts } from "../components/alerts/Alerts";
+import { ContinueCancelModal } from "../components/continue-cancel/ContinueCancelModel";
+import { usePromise } from "../utils/usePromise";
+import { EditTheResource } from "./EditTheResource";
+import { PermissionRequest } from "./PermissionRequest";
+import { ResourceToolbar } from "./ResourceToolbar";
+import { SharedWith } from "./SharedWith";
+import { ShareTheResource } from "./ShareTheResource";
 
 type PermissionDetail = {
   contextOpen?: boolean;
@@ -58,9 +57,9 @@ export const ResourcesTab = () => {
   const { t } = useTranslation();
   const { addAlert, addError } = useAlerts();
 
-  const [params, setParams] = useState<Record<string, string>>({
-    first: "0",
-    max: "5",
+  const [params, setParams] = useState<PaginationParams>({
+    first: 0,
+    max: 5,
   });
   const [links, setLinks] = useState<Links | undefined>();
   const [resources, setResources] = useState<Resource[]>();
@@ -72,16 +71,16 @@ export const ResourcesTab = () => {
 
   usePromise(
     async (signal) => {
-      const result = await fetchResources({ signal }, params);
+      const result = await getResources(params);
       await Promise.all(
-        result.data.map(
+        result.resources.map(
           async (r) => (r.shareRequests = await fetchRequest({ signal }, r._id))
         )
       );
       return result;
     },
-    ({ data, links }) => {
-      setResources(data);
+    ({ resources, links }) => {
+      setResources(resources);
       setLinks(links);
     },
     [params, key]
@@ -94,7 +93,7 @@ export const ResourcesTab = () => {
   const fetchPermissions = async (id: string) => {
     let permissions = details[id]?.permissions || [];
     if (!details[id]) {
-      permissions = await fetchPermission({}, id);
+      permissions = await getPermissions(id);
     }
     return permissions;
   };
